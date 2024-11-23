@@ -3,73 +3,87 @@ import java.util.Scanner;
 public class Calculadora {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String continuar;
+        String operador, continuar;
+        double num1, num2;
 
         do {
-            System.out.print("Digite o operador +(Somar), *(Multiplicar), /(Dividir), -(Subtrair), **(Potenciação): ");
-            String operacao_digitada = scanner.nextLine();
+            do {
+                System.out.print("Digite o operador que deseja utilizar + (Soma), - (Subtração), * (Multiplicação), / (Divisão), ** (Potenciação): ");
+                operador = scanner.nextLine();
 
-            System.out.println("Operação escolhida: " + operacao_digitada);
+                if (operador.equals("+") || operador.equals("-") || operador.equals("*") || operador.equals("/") || operador.equals("**")) {
+                    System.out.println("Operador digitado: " + operador);
+                } else {
+                    System.out.println("O operador '" + operador + "' não existe nesse programa.");
+                }
+            } while (!(operador.equals("+") || operador.equals("-") || operador.equals("*") || operador.equals("/") || operador.equals("**")));
 
             System.out.print("Digite o primeiro número: ");
-            Double num1 = scanner.nextDouble();
-            
+            num1 = scanner.nextDouble();
+
             System.out.print("Digite o segundo número: ");
-            Double num2 = scanner.nextDouble();
+            num2 = scanner.nextDouble();
+            scanner.nextLine();
 
-            if (operacao_digitada.equals("+")) {
-                System.out.print("O resultado da soma de " + num1 + " e " + num2 + " é de : ");
-                sum(num1, num2);
+            if (operador.equals("+")) {
+                double resultado = soma(num1, num2); 
+                System.out.println("O resultado da soma de " + num1 + " e " + num2 + " é: " + resultado);
+            }
 
-            } else if (operacao_digitada.equals("-")) {
-                System.out.print("O resultado da subtração de " + num1 + " e " + num2 + " é de : ");
-                sub(num1, num2);
+            else if (operador.equals("-")) {
+                double resultado = subtracao(num1, num2); 
+                System.out.println("O resultado da subtração de " + num1 + " e " + num2 + " é: " + resultado);
+            }
 
-            } else if (operacao_digitada.equals("*")) {
-                System.out.print("O resultado da multiplicação de " + num1 + " e " + num2 + " é de : ");
-                mult(num1, num2);
+            else if (operador.equals("*")) {
+                double resultado = multiplicacao(num1, num2); 
+                System.out.println("O resultado da multiplicação de " + num1 + " e " + num2 + " é: " + resultado);
+            }
 
-            } else if (operacao_digitada.equals("/")) {
-
-                if (num2 == 0) {
-                    System.out.println("Erro: Divisão por zero não é permitida.");
+            else if (operador.equals("/")) {
+                if (num2 != 0) {
+                    double resultado = divisao(num1, num2); 
+                    System.out.println("O resultado da divisão de " + num1 + " por " + num2 + " é: " + resultado);
                 } else {
-                    System.out.print("O resultado da divisão de " + num1 + " e " + num2 + " é: ");
-                    div(num1, num2);
+                    System.out.println("Não é possível dividir por zero.");
                 }
-                
-            } else if (operacao_digitada.equals("**")) {
-                System.out.print("O resultado da potenciação de " + num1 + " e " + num2 + " é de : ");
-                pot(num1, num2);
+            }
+
+            else if (operador.equals("**")) {
+                double resultado = potenciacao(num1, num2); 
+                System.out.println("O resultado da potenciação de " + num1 + " elevado a " + num2 + " é: " + resultado);
             }
 
             System.out.print("Deseja realizar outra operação? (S/N): ");
-            continuar = scanner.next();
-            scanner.nextLine();
+            continuar = scanner.nextLine();
 
-        } while (continuar.equalsIgnoreCase("S" )); // Continuar se o usuário digitar 's' ou 'S'
+            if (continuar.equalsIgnoreCase("N")) {
+                System.out.println("Programa encerrado.");
+                break;
+            }
 
-        scanner.close(); // Fechar o scanner
+        } while (continuar.equalsIgnoreCase("S"));
+
+        scanner.close();
     }
 
-    // FUNÇÕES OU MÉTODOS DO CÓDIGO
-    static void sum(double num1, double num2) {
-        System.out.println(num1 + num2);
+    public static double soma(double num1, double num2) {
+        return num1 + num2;
     }
 
-    static void sub(double num1, double num2) {
-        System.out.println(num1 - num2);
+    public static double subtracao(double num1, double num2) {
+        return num1 - num2;
     }
 
-    static void mult(double num1, double num2) {
-        System.out.println(num1 * num2);
+    public static double multiplicacao(double num1, double num2) {
+        return num1 * num2;
     }
 
-    static void div(double num1, double num2) {
-        System.out.println(num1 / num2);
+    public static double divisao(double num1, double num2) {
+        return num1 / num2;
     }
 
-    static void pot(double num1, double num2) {
-        System.out.println(Math.pow(num1, num2));
+    public static double potenciacao(double num1, double num2) {
+        return Math.pow(num1, num2);
     }
 }
